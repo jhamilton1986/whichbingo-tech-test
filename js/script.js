@@ -26,15 +26,13 @@
     });
   }
   
-  // Closes the navigation menu
+  // Toggles the navigation menu
   function toggleMenu(event) {
     if (page.classList.contains('is-open')) {
       collapseMenuItems(); // Reset the menu accordion when closing the menu
     }
     
-    toggleElements.forEach(el => {
-      el.element.classList.toggle(el.displayClass);
-    })
+    toggleElements.forEach(el => el.element.classList.toggle(el.displayClass));
   }
   
   // Close the navigation menu when tapping/clicking the page
@@ -54,8 +52,12 @@
   }
   
   mobileNavButton.addEventListener('click', toggleMenu, false);
-  page.addEventListener('click', togglePageClick, false);
   mobileNavLinks.forEach(link => { link.addEventListener('click', toggleMenuItem, false) });
+
+  // We only need to add the click handler to the page when on a mobile viewport
+  if (window.innerWidth < 768) {
+    page.addEventListener('click', togglePageClick, false);    
+  }
   
   // Prevent the nav menu animating on page load
   setTimeout(() => {
